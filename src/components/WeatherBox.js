@@ -60,10 +60,8 @@ const WeatherBox = ({
 
     if (hour > 12) {
       setAM(false);
-      console.log("greater than 12");
     } else {
       setAM(true);
-      console.log("lower than 12");
     }
   }, [cityName]);
 

@@ -21,9 +21,8 @@ function App() {
   const [cityWindSpeed, setCityWindSpeed] = useState();
   const [icon, setIcon] = useState();
   const fetchNewWeather = (e) => {
-    console.log("clicked");
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=f637215bcd63010ac4dbc9f97a6de921`
+      `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
     )
       .then((data) => data.json())
       .then((result) => {
@@ -39,7 +38,7 @@ function App() {
 
   useEffect(() => {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=mumbai&appid=f637215bcd63010ac4dbc9f97a6de921`
+      `https://api.openweathermap.org/data/2.5/weather?q=mumbai&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
     )
       .then((data) => data.json())
       .then((result) => {
