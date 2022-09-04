@@ -5,6 +5,7 @@ import {
   BsCloudHazeFill,
   BsFillCloudLightningRainFill,
   BsFillCloudRainHeavyFill,
+  BsFillMoonStarsFill,
 } from "react-icons/bs";
 import { IoIosSunny, IoIosThunderstorm } from "react-icons/io";
 import { WiSunset, WiHumidity, WiRainWind, WiStrongWind } from "react-icons/wi";
@@ -25,14 +26,24 @@ const WeatherBox = ({
 }) => {
   const [am, setAM] = useState(false);
   useEffect(() => {
+    const d = new Date();
+    let hour = d.getHours();
     if (cityWeather == "Haze") {
       setIcon(<BsCloudHazeFill />);
     } else if (cityWeather == "Clouds" || cityWeather == "Overcast clouds") {
       setIcon(<BsCloudHazeFill />);
     } else if (cityWeather == "Clear" || cityWeather == "Clear sky") {
-      setIcon(<IoIosSunny />);
+      if (hour > 19 || time <= 5) {
+        setIcon(<BsFillMoonStarsFill />);
+      } else {
+        setIcon(<IoIosSunny />);
+      }
     } else if (cityWeather == "Mist") {
-      setIcon(<IoIosSunny />);
+      if (hour > 19 || time <= 5) {
+        setIcon(<BsFillMoonStarsFill />);
+      } else {
+        setIcon(<IoIosSunny />);
+      }
     } else if (cityWeather == "Thunderstorm with light rain") {
       setIcon(<BsFillCloudLightningRainFill />);
     } else if (cityWeather == "Thunderstorm") {
@@ -40,12 +51,20 @@ const WeatherBox = ({
     } else if (cityWeather == "Rain") {
       setIcon(<BsFillCloudRainHeavyFill />);
     } else {
-      setIcon(<BsFillCloudSunFill />);
+      if (time < 18 && time >= 5) {
+        setIcon(<BsFillMoonStarsFill />);
+      } else {
+        setIcon(<IoIosSunny />);
+      }
     }
 
-    if (time < 12) {
+    if (hour > 12) {
+      setAM(false);
+      console.log("greater than 12");
+    } else {
       setAM(true);
-    } else setAM(false);
+      console.log("lower than 12");
+    }
   }, [cityName]);
 
   //   temp to 2 digits
@@ -77,7 +96,7 @@ const WeatherBox = ({
           <h2>{new Date().toLocaleDateString()}</h2>
           <h2>
             {time}
-            {!am ? "PM" : "AM"}
+            {am ? "AM" : "PM"}
           </h2>
         </div>
       </div>
