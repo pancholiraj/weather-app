@@ -51,7 +51,7 @@ function App() {
         setCitySunset(result.sys.sunset);
         setCityWindSpeed(result.wind.speed);
       });
-  });
+  }, []);
   return (
     <div className="App">
       <div className="inputForm">
